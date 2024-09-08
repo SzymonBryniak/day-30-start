@@ -51,22 +51,20 @@ def store_data():
     is_ok = messagebox.askokcancel(title="Title", message=f"These are the details entered \n Email:{website_get} \n username:{username_email_get} \n password:{password_get}")
 
     if is_ok and website_get and username_email_get and password_get:
-        try:
-            with open('data.json', 'r') as data_file:
-                data = json.load(data_file)
-                data.update(new_data)
-        except FileNotFoundError:
-            print("file not found, creating new file")
-            with open("data.json", "w") as data_file:
-                json.dump(new_data, data_file, indent=4)
-                data = json.load(data_file)
-                data.update(new_data)
-        finally:
-            with open("data.json", "w") as data_file:
-                json.dump(data, data_file, indent=4)
-                website.delete(0, END)
-                username_email.delete(0, END)
-                password.delete(0, END)
+
+        with open('data.json', 'r') as data_file:
+            data = json.load(data_file)
+            data.update(new_data)
+
+
+        with open("data.json", "w") as data_file:
+            json.dump(new_data, data_file, indent=4)
+
+
+
+        website.delete(0, END)
+        username_email.delete(0, END)
+        password.delete(0, END)
     return
 
 
