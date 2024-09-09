@@ -81,6 +81,8 @@ def search():
             if website_get == key:
                 tkinter.messagebox.showinfo(title=f"{key}", message=f"Email: {value['email']} \nPassword: {value['password']}")
                 print(key)
+                return
+        tkinter.messagebox.showinfo(title=f"No Data Found", message=f"No data found")
 
 
 window = Tk()
