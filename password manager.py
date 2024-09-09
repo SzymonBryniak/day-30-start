@@ -78,8 +78,9 @@ def search():
     with open("data.json", "r") as data_file:
         to_search = json.load(data_file)
         for key, value in to_search.items():
-            print(key)
-
+            if website_get == key:
+                tkinter.messagebox.showinfo(title=f"{key}", message=f"Email: {value['email']} \nPassword: {value['password']}")
+                print(key)
 
 
 window = Tk()
@@ -103,7 +104,6 @@ label3.grid(column=0, row=3)
 
 button1 = tkinter.Button(text='Generate Password', command=generate_password)
 button1.grid(column=1, row=3, columnspan=3, ipadx=11, sticky='e')
-
 
 website = tkinter.Entry(window, width=21)
 website.grid(column=1, row=1, columnspan=3, sticky='w')
