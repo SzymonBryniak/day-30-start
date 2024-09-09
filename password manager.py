@@ -52,25 +52,34 @@ def store_data():
 
     if is_ok and website_get and username_email_get and password_get:
 
-        with open('data.json', 'r') as data_file:
-            data = json.load(data_file)
-            data.update(new_data)
+        try:
+            with open('data.json', 'r') as data_file:
+                data = json.load(data_file)
+                print(f'1 {data}')
+                data.update(new_data)
+                print(f'11 {data}')
+            with open('data.json', 'w') as data_file2:
+                print(f'2 {data}')
+                json.dump(data, data_file2, indent=4)
+                print('dump')
+        except FileNotFoundError:
+            with open('data.json', 'w') as data_file:
+                json.dump(new_data, data_file, indent=4)
+                print('exception dump')
 
-        with open("data.json", "w") as data_file:
-            json.dump(data, data_file, indent=4)
-            website.delete(0, END)
-            username_email.delete(0, END)
-            password.delete(0, END)
+        website.delete(0, END)
+        # username_email.delete(0, END)
+        password.delete(0, END)
     return
 
 
-# def search():
-#     website_get = website.get()
-#     with open("data.json", "r") as data_file:
-#         to_search = json.load(data_file)
-#         for key, value in to_search.items():
-#             print(key)
-#     pass
+def search():
+    website_get = website.get()
+    with open("data.json", "r") as data_file:
+        to_search = json.load(data_file)
+        for key, value in to_search.items():
+            print(key)
+
 
 
 window = Tk()
@@ -113,6 +122,6 @@ button2 = tkinter.Button(text='Add', width=36, command=store_data)
 button2.grid(column=1, row=4, columnspan=2, sticky='w')
 
 
-search1 = tkinter.Button(text='Search')
+search1 = tkinter.Button(text='Search', command=search)
 search1.grid(column=1, row=1, columnspan=3, ipadx=42, sticky='e')
 window.mainloop()

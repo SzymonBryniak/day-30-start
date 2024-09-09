@@ -1,10 +1,14 @@
 {
-    "website1": {
+    "Facebook": {
         "email": "szymon@gmail.com",
-        "password": "fkoabNsZb991**!*"
+        "password": "NiZCnjOuM97)$"
     },
-    "website2": {
+    "Amazon": {
         "email": "szymon@gmail.com",
-        "password": "PhangJfr04%$$%"
+        "password": "DywrdzhmUS2433+#%"
+    },
+    "GitHub": {
+        "email": "szymon@gmail.com",
+        "password": "kVATkXAU25*($+"
     }
 }
