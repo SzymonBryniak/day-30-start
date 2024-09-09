@@ -51,22 +51,29 @@ def store_data():
     is_ok = messagebox.askokcancel(title="Title", message=f"These are the details entered \n Email:{website_get} \n username:{username_email_get} \n password:{password_get}")
 
     if is_ok and website_get and username_email_get and password_get:
-
-        with open('data.json', 'r') as data_file:
-            data = json.load(data_file)
-            data.update(new_data)
-
-
-        with open("data.json", "w") as data_file:
-            json.dump(new_data, data_file, indent=4)
-
-
+        data = ''
+        try:
+            with open('data.json', 'r') as data_file:
+                data = json.load(data_file)
+                print(f'1 {data}')
+                data.update(new_data)
+                print(f'11 {data}')
+            with open('data.json', 'w') as data_file2:
+                print(f'2 {data}')
+                json.dump(data, data_file2, indent=4)
+                print('dump')
+        except FileNotFoundError:
+            with open('data.json', 'w') as data_file:
+                json.dump(new_data, data_file, indent=4)
+                print('exception dump')
 
         website.delete(0, END)
         username_email.delete(0, END)
         password.delete(0, END)
-    return
 
+
+
+    return
 
 window = Tk()
 window.title('Password Manager')

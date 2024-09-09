@@ -51,26 +51,23 @@ def store_data():
     is_ok = messagebox.askokcancel(title="Title", message=f"These are the details entered \n Email:{website_get} \n username:{username_email_get} \n password:{password_get}")
 
     if is_ok and website_get and username_email_get and password_get:
-
-        with open('data.json', 'r') as data_file:
-            data = json.load(data_file)
-            data.update(new_data)
-
-        with open("data.json", "w") as data_file:
-            json.dump(data, data_file, indent=4)
-            website.delete(0, END)
-            username_email.delete(0, END)
-            password.delete(0, END)
+        try:
+            with open('data.json', 'r') as data_file:
+                data = json.load(data_file)
+                data.update(new_data)
+        except FileNotFoundError:
+            print("file not found, creating new file")
+            with open("data.json", "w") as data_file:
+                json.dump(new_data, data_file, indent=4)
+                data = json.load(data_file)
+                data.update(new_data)
+        finally:
+            with open("data.json", "w") as data_file:
+                json.dump(data, data_file, indent=4)
+                website.delete(0, END)
+                username_email.delete(0, END)
+                password.delete(0, END)
     return
-
-
-# def search():
-#     website_get = website.get()
-#     with open("data.json", "r") as data_file:
-#         to_search = json.load(data_file)
-#         for key, value in to_search.items():
-#             print(key)
-#     pass
 
 
 window = Tk()
@@ -96,7 +93,7 @@ button1 = tkinter.Button(text='Generate Password', command=generate_password)
 button1.grid(column=1, row=3, columnspan=3, ipadx=11, sticky='e')
 
 
-website = tkinter.Entry(window, width=21)
+website = tkinter.Entry(window, width=43)
 website.grid(column=1, row=1, columnspan=3, sticky='w')
 website.focus()
 
@@ -111,8 +108,4 @@ password.grid(column=1, row=3, sticky='w')
 
 button2 = tkinter.Button(text='Add', width=36, command=store_data)
 button2.grid(column=1, row=4, columnspan=2, sticky='w')
-
-
-search1 = tkinter.Button(text='Search')
-search1.grid(column=1, row=1, columnspan=3, ipadx=42, sticky='e')
 window.mainloop()
