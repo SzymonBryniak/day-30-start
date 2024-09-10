@@ -75,13 +75,17 @@ def store_data():
 
 def search():
     website_get = website.get()
-    with open("data.json", "r") as data_file:
-        to_search = json.load(data_file)
-        for key, value in to_search.items():
-            if website_get == key:
-                tkinter.messagebox.showinfo(title=f"{key}", message=f"Email: {value['email']} \nPassword: {value['password']}")
-                print(key)
-                return
+    try:
+        with open("data.json", "r") as data_file:
+            to_search = json.load(data_file)
+    except FileNotFoundError:
+        tkinter.messagebox.showinfo(title="No Data File Found", message="No Data File Found")
+        return
+    for key, value in to_search.items():
+        if website_get == key:
+            tkinter.messagebox.showinfo(title=f"{key}", message=f"Email: {value['email']} \nPassword: {value['password']}")
+            print(key)
+            return
         tkinter.messagebox.showinfo(title=f"No Data Found", message=f"No data found")
 
 
